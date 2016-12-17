@@ -1,15 +1,15 @@
 #Learn'English
 
-**Application pour apprendre de la langue de shakespeare !**
+**Desktop app for learning English !**
 
-*Projet d'Anglais TELECOM Nancy 2016-2017*
+*English Project TELECOM Nancy 2016-2017*
 
-* **Auteurs**
+* **Authors**
 
   - GARCIA Guillaume
   - ?????? ?????????
 
-* **Dépendances**
+* **Dependencies**
 
   - ?????????
 
@@ -18,7 +18,7 @@
     - `?????`
     - `?????`
 
-* **Utilisation de Learn'English**
+* **How to use Learn'English**
 
 * *???????????????*
 
