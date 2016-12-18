@@ -2,13 +2,12 @@
 /////////////////////////////////////    v 1.0.0.0        17/12/2016     ///////////////////////////////////////////////////
 
 
-#include <iostream>
+#include <QApplication>
 
-using namespace std;
+int main(int argc, char *argv[]) {
 
-int main() {
+    QApplication app(argc, argv);
 
-  cout << "Ntm le test" << endl;
+    return app.exec();
 
-  return 0;
 }

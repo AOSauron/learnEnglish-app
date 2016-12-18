@@ -16,3 +16,6 @@ clean:
 
 mrproper: clean
 	rm -rf ptar
+
+test.pdf: main.cpp Makefile
+	a2ps -o - main.cpp Makefile | ps2pdf - test.pdf
