@@ -3,18 +3,14 @@
 
 
 #include <QApplication>
-#include <QPushButton>
+#include "mainwindow.h"
 
 int main(int argc, char *argv[]) {
 
     QApplication app(argc, argv);
-    QPushButton button("CLIK LA FDP");
-    button.setToolTip("ALLAHUAKBAR");
-    button.setFont(QFont("Times New Roman", 20, QFont::Bold, false));
-    button.setCursor(Qt::PointingHandCursor);
-    button.setIcon(QIcon(QCoreApplication::applicationDirPath() + "/bomb.png"));
 
-    button.show();
+    mainwindow window;
+    window.show();
 
     return app.exec();
 
