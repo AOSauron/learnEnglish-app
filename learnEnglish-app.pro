@@ -1,7 +1,7 @@
 CONFIG += qt
 
-SOURCES += mainwindow.h
-SOURCES += main.cpp
-SOURCES += mainwindow.cpp
+SOURCES += src/mainwindow.h
+SOURCES += src/main.cpp
+SOURCES += src/mainwindow.cpp
 
 QT+=widgets
