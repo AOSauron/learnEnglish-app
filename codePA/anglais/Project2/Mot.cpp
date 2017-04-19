@@ -1,20 +1,15 @@
-#include "Verbe.h"
+#include "Mot.h"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
-class Mot {
-protected:
-	string mot;
-	string traduction;
-
-public:
-	string getMot();
-	string getTraduction();
-	void setMot(string mot);
-	void setTraduction(string trad);
-};
+Mot::Mot(string mot, string trad, int sco)
+{
+	this->mot = mot;
+	this->traduction = trad;
+	this->score = sco;
+}
 
 string Mot::getMot()
 {
@@ -26,6 +21,11 @@ string Mot::getTraduction()
 	return this->traduction;
 }
 
+int Mot::getScore()
+{
+	return this->score;
+}
+
 void Mot::setMot(string mot)
 {
 	this->mot = mot;
@@ -34,4 +34,19 @@ void Mot::setMot(string mot)
 void Mot::setTraduction(string trad)
 {
 	this->traduction = trad;
+}
+
+void Mot::setScore(int score)
+{
+	this->score = score;
+}
+
+void Mot::ScorePlus()
+{
+	this->score++;
+}
+
+void Mot::ScoreMoins()
+{
+	this->score--;
 }
