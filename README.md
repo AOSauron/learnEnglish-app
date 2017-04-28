@@ -1,4 +1,4 @@
-#Learn'English
+# Learn'English
 
 **Desktop app for learning English !**
 
@@ -16,7 +16,7 @@
 
 * **Build & execute:**
 
-    - `qmake` (if .pro file has been modified, then :)
+    - `qmake` (if .pro file has been modified, then use make)
     - `make`  (build binary)
     - `./learnEnglish-app`
 

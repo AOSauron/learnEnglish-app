@@ -13,6 +13,7 @@ class mainwindow : public QWidget
 
     private:
     QPushButton *m_quitbutton;
+    QPushButton *m_launchbutton;
 };
 
 #endif
