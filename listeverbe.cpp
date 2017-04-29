@@ -1,25 +1,10 @@
 #include "verbe.h"
 #include "utils.h"
+#include "listeverbe.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include <QtGlobal>
-
-using namespace std;
-
-class ListeVerbe {
-
-    public :
-        vector<Verbe> getListe();
-        void setListe(vector<Verbe> list);
-        void initialiseListe();
-        Verbe tirageAleatoire();
-
-    protected :
-        vector<Verbe> liste;
-
-
-};
 
 vector<Verbe> ListeVerbe::getListe()
 {

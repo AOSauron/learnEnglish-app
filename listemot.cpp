@@ -1,26 +1,14 @@
 #include "mot.h"
 #include "utils.h"
+#include "listemot.h"
 #include <time.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <QtGlobal>
-
-using namespace std;
-
-class ListeMot {
-
-public:
-    vector<Mot> getListe();
-    void setListe(vector<Mot> list);
-    void initialiseListe();
-    Mot tirageAleatoire();
-
-protected:
-    vector<Mot> liste;
-
-
-};
+#include <QFile>
+#include <QStringList>
+#include <QDebug>
 
 vector<Mot> ListeMot::getListe()
 {
@@ -34,8 +22,23 @@ void ListeMot::setListe(vector<Mot> list)
 
 void ListeMot::initialiseListe()
 {
+    QFile file("dataword.csv");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << file.errorString();
+        return;
+    }
 
-    //TODO a completer
+    QStringList wordListEnglish;
+    QStringList wordListFrench;
+
+    while (!file.atEnd()) {
+        QByteArray line = file.readLine();
+        wordListEnglish.append(line.split(',').first());
+        wordListFrench.append(line.split(',').at(1));
+    }
+
+    qDebug() << wordListEnglish;
+    qDebug() << wordListFrench;
 }
 
 Mot ListeMot::tirageAleatoire()

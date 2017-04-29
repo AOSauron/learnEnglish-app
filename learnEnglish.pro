@@ -25,7 +25,12 @@ HEADERS  += mainwindow.h \
     transdialog.h \
     verbe.h \
     mot.h \
-    utils.h
+    utils.h \
+    listemot.h \
+    listeverbe.h
 
 FORMS    += mainwindow.ui \
     transdialog.ui
+
+OTHER_FILES += \
+    dataword.csv

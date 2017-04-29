@@ -1,5 +1,6 @@
 #include "transdialog.h"
 #include "ui_transdialog.h"
+#include "listemot.h"
 #include <QtGlobal>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,6 +10,9 @@ TransDialog::TransDialog(QWidget *parent) :
     ui(new Ui::TransDialog)
 {
     ui->setupUi(this);
+    ListeMot *listemot = new ListeMot();
+
+    listemot->initialiseListe();
 }
 
 TransDialog::~TransDialog()

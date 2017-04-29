@@ -20,6 +20,8 @@
     - `make`  (build binary)
     - `./learnEnglish-app`
 
+    - Or simply run `./setup.sh` then `./learnEnglish-app`
+
 * **How to use Learn'English**
 
 * *???????????????*
