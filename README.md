@@ -18,9 +18,9 @@
 
     - `qmake` (if .pro file has been modified, then use make)
     - `make`  (build binary)
-    - `./learnEnglish-app`
+    - `./learnEnglish`
 
-    - Or simply run `./setup.sh` then `./learnEnglish-app`
+    - **Or** simply run `./setup.sh` then `./learnEnglish`
 
 * **How to use Learn'English**
 
