@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     verbe.cpp \
     utils.cpp \
     listeverbe.cpp \
-    listemot.cpp
+    listemot.cpp \
+    verbdialog.cpp
 
 HEADERS  += mainwindow.h \
     transdialog.h \
@@ -27,10 +28,12 @@ HEADERS  += mainwindow.h \
     mot.h \
     utils.h \
     listemot.h \
-    listeverbe.h
+    listeverbe.h \
+    verbdialog.h
 
 FORMS    += mainwindow.ui \
-    transdialog.ui
+    transdialog.ui \
+    verbdialog.ui
 
 OTHER_FILES += \
     dataword.csv

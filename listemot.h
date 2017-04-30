@@ -19,9 +19,13 @@ public:
     void setListe(vector<Mot> list);
     void initialiseListe();
     Mot tirageAleatoire();
+    QStringList getenListe();
+    QStringList getfrListe();
 
 protected:
     vector<Mot> liste;
+    QStringList wordEnglishlist;
+    QStringList wordFrenchlist;
 
 };
 

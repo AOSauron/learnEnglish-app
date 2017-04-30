@@ -1,5 +1,6 @@
 #ifndef TRANSDIALOG_H
 #define TRANSDIALOG_H
+#define MAXWORD 4
 
 #include <QDialog>
 
@@ -14,14 +15,33 @@ class TransDialog : public QDialog
 public:
     explicit TransDialog(QWidget *parent = 0);
     ~TransDialog();
+    bool TransDialog::is_tested(int index);
+    void TransDialog::ending();
+    void TransDialog::setUsername(QString username);
 
 private slots:
     void on_lineEdit_returnPressed();
 
     void on_pushButton_clicked();
 
+    void on_next_button_clicked();
+
 private:
     Ui::TransDialog *ui;
+    bool endGame;
+    int score;
+    int min;
+    int maxi;
+    int nb;
+    int used [MAXWORD];
+    int current;
+    int highscore;
+    QStringList enList;
+    QStringList frList;
+    QString en;
+    QString fr;
+    QString best_player;
+    QString username;
 };
 
 #endif // TRANSDIALOG_H

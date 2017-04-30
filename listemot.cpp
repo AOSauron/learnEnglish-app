@@ -15,30 +15,43 @@ vector<Mot> ListeMot::getListe()
     return this->liste;
 }
 
+QStringList ListeMot::getenListe() {
+    return this->wordEnglishlist;
+}
+
+QStringList ListeMot::getfrListe(){
+    return this->wordFrenchlist;
+}
+
 void ListeMot::setListe(vector<Mot> list)
 {
     this->liste = list;
 }
 
 void ListeMot::initialiseListe()
-{
+{ /*
     QFile file("dataword.csv");
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
         return;
     }
 
-    QStringList wordListEnglish;
-    QStringList wordListFrench;
-
     while (!file.atEnd()) {
         QByteArray line = file.readLine();
-        wordListEnglish.append(line.split(',').first());
-        wordListFrench.append(line.split(',').at(1));
+        wordEnglishlist.append(line.split(',').first());
+        wordFrenchlist.append(line.split(',').at(1));
     }
-
-    qDebug() << wordListEnglish;
-    qDebug() << wordListFrench;
+*/
+    wordEnglishlist.append("mouse");
+    wordEnglishlist.append("key");
+    wordEnglishlist.append("cat");
+    wordEnglishlist.append("dog");
+    wordFrenchlist.append("souris");
+    wordFrenchlist.append("clé");
+    wordFrenchlist.append("chat");
+    wordFrenchlist.append("chien");
+    //qDebug() << wordListEnglish;
+    //qDebug() << wordListFrench;
 }
 
 Mot ListeMot::tirageAleatoire()
