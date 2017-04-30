@@ -15,19 +15,23 @@ TransDialog::TransDialog(QWidget *parent) :
     //Basic inits
     endGame = false;
     best_player = "Mme Duval";
+    score = 0;
+    min = 0;
+    nb = 0;
+
     for (int i=0; i<MAXWORD; i++) {
         used[i]=-1;
     }
 
-    // Launch init of the wordlist.
+    //Launch init of the wordlist.
     ListeMot *listemot = new ListeMot();
     listemot->initialiseListe();
     enList = listemot->getenListe();
     frList = listemot->getfrListe();
-    score = 0;
-    min = 0;
-    nb = 0;
     maxi = enList.size();
+    highscore = maxi;
+
+    qDebug() << nb;
 
     //First generation
     current = randAB(min,maxi);
@@ -56,6 +60,7 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->lcdScoreFinal->setVisible(false);
     ui->username_label->setVisible(false);
     ui->logged_as->setVisible(false);
+    ui->end_button->setVisible(false);
 }
 
 TransDialog::~TransDialog()
@@ -66,7 +71,7 @@ TransDialog::~TransDialog()
 void TransDialog::on_lineEdit_returnPressed()
 {
     //If Next Button visible or End Game or Nothing writed, do nop.
-    if (ui->next_button->isVisible() || endGame || ui->lineEdit->text() == "") {
+    if (ui->next_button->isVisible() || endGame /*|| ui->lineEdit->text() == ""*/) {
         return;
     }
 
@@ -77,7 +82,7 @@ void TransDialog::on_lineEdit_returnPressed()
     ui->label_6->setVisible(true);
     ui->label_7->setVisible(true);
 
-    // Validation
+    //Validation
     if (good!=response) {
         ui->label_8->setVisible(true);
     }
@@ -95,13 +100,13 @@ void TransDialog::on_lineEdit_returnPressed()
     ui->next_button->setVisible(true);
 }
 
-// Press enter
+//Press enter
 void TransDialog::on_pushButton_clicked()
 {
     TransDialog::on_lineEdit_returnPressed();
 }
 
-// Button next
+//Button next
 void TransDialog::on_next_button_clicked()
 {
     //Hide next button and other stuff
@@ -113,17 +118,19 @@ void TransDialog::on_next_button_clicked()
     ui->lineEdit->clear();
     ui->next_button->setVisible(false);
 
+    qDebug() << nb;
+
+    //Game end reached
+    if (nb==maxi) {
+        endGame = true;
+        ending();
+        return;
+    }
+
     //Change the word to translate
     for (int i=0; i<maxi; i++) {
         current = randAB(min,maxi);
         if (!is_tested(current)) break;
-
-        // Game end reached
-        if (i==maxi-2) {
-            endGame = true;
-            ending();
-            return;
-        }
     }
 
     //Add to array 'used'
@@ -167,6 +174,7 @@ void TransDialog::ending()
     ui->lcdHigh->display(highscore);
     ui->highname_label->setText("by " + best_player);
 
+    ui->end_button->setVisible(true);
     ui->username_label->setVisible(true);
     ui->logged_as->setVisible(true);
     ui->username_label->setText(this->username);
@@ -182,4 +190,9 @@ void TransDialog::ending()
 void TransDialog::setUsername(QString username)
 {
     this->username = username;
+}
+
+void TransDialog::on_end_button_clicked()
+{
+    this->close();
 }

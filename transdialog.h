@@ -1,6 +1,6 @@
 #ifndef TRANSDIALOG_H
 #define TRANSDIALOG_H
-#define MAXWORD 4
+#define MAXWORD 2000
 
 #include <QDialog>
 
@@ -25,6 +25,8 @@ private slots:
     void on_pushButton_clicked();
 
     void on_next_button_clicked();
+
+    void on_end_button_clicked();
 
 private:
     Ui::TransDialog *ui;

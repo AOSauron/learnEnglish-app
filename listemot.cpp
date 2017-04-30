@@ -7,6 +7,7 @@
 #include <vector>
 #include <QtGlobal>
 #include <QFile>
+#include <QtCore>
 #include <QStringList>
 #include <QDebug>
 
@@ -29,19 +30,23 @@ void ListeMot::setListe(vector<Mot> list)
 }
 
 void ListeMot::initialiseListe()
-{ /*
-    QFile file("dataword.csv");
+{
+    QFile file("c:\\Ethminer\\dataword.csv");
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
         return;
     }
 
-    while (!file.atEnd()) {
-        QByteArray line = file.readLine();
-        wordEnglishlist.append(line.split(',').first());
-        wordFrenchlist.append(line.split(',').at(1));
+    QString data = file.readAll();
+    QStringList atom = data.split(';');
+    for (int i=0; i<atom.size(); i++) {
+        wordEnglishlist.append(atom[i].split(',').first());
+        wordFrenchlist.append(atom[i].split(',').at(1));
     }
-*/
+
+    qDebug() << wordEnglishlist.size();
+
+/*
     wordEnglishlist.append("mouse");
     wordEnglishlist.append("key");
     wordEnglishlist.append("cat");
@@ -51,7 +56,7 @@ void ListeMot::initialiseListe()
     wordFrenchlist.append("chat");
     wordFrenchlist.append("chien");
     //qDebug() << wordListEnglish;
-    //qDebug() << wordListFrench;
+    //qDebug() << wordListFrench;*/
 }
 
 Mot ListeMot::tirageAleatoire()
