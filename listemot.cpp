@@ -7,9 +7,13 @@
 #include <vector>
 #include <QtGlobal>
 #include <QFile>
-#include <QtCore>
 #include <QStringList>
+#include <QFileInfo>
 #include <QDebug>
+
+ListeMot::ListeMot(QString path) {
+    this->path = path;
+}
 
 vector<Mot> ListeMot::getListe()
 {
@@ -31,7 +35,9 @@ void ListeMot::setListe(vector<Mot> list)
 
 void ListeMot::initialiseListe()
 {
-    QFile file("c:\\Ethminer\\dataword.csv");
+    qDebug() << path;
+
+    QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << file.errorString();
         return;

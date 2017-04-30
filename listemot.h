@@ -15,6 +15,7 @@
 class ListeMot {
 
 public:
+    ListeMot::ListeMot(QString path);
     vector<Mot> getListe();
     void setListe(vector<Mot> list);
     void initialiseListe();
@@ -26,6 +27,7 @@ protected:
     vector<Mot> liste;
     QStringList wordEnglishlist;
     QStringList wordFrenchlist;
+    QString path;
 
 };
 

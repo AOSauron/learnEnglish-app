@@ -1,6 +1,7 @@
 #include "transdialog.h"
 #include "ui_transdialog.h"
 #include "listemot.h"
+#include "utils.h"
 #include <QtGlobal>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,42 +13,7 @@ TransDialog::TransDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //Basic inits
-    endGame = false;
-    best_player = "Mme Duval";
-    score = 0;
-    min = 0;
-    nb = 0;
-
-    for (int i=0; i<MAXWORD; i++) {
-        used[i]=-1;
-    }
-
-    //Launch init of the wordlist.
-    ListeMot *listemot = new ListeMot();
-    listemot->initialiseListe();
-    enList = listemot->getenListe();
-    frList = listemot->getfrListe();
-    maxi = enList.size();
-    highscore = maxi;
-
-    qDebug() << nb;
-
-    //First generation
-    current = randAB(min,maxi);
-    used[nb]=current;
-
-    en = enList[current];
-    fr = frList[current];
-
-    ui->good_label->setText(en);
-    ui->label_7->setVisible(false);
-    ui->label_7->setText(fr);
-
-    //UI
-    ui->lcdNumber->display(score);
-    ui->progressBar->reset();
-    ui->progressBar->setRange(min,maxi);
+    //Hide all except start button
     ui->label_8->setVisible(false);
     ui->label_11->setVisible(false);
     ui->next_button->setVisible(false);
@@ -61,6 +27,17 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->username_label->setVisible(false);
     ui->logged_as->setVisible(false);
     ui->end_button->setVisible(false);
+
+    ui->progressBar->setVisible(false);
+    ui->pushButton->setVisible(false);
+    ui->lineEdit->setVisible(false);
+    ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_10->setVisible(false);
+    ui->label_2->setVisible(false);
+    ui->label_9->setVisible(false);
+    ui->lcdNumber->setVisible(false);
+    ui->warning_label->setVisible(false);
 }
 
 TransDialog::~TransDialog()
@@ -71,7 +48,7 @@ TransDialog::~TransDialog()
 void TransDialog::on_lineEdit_returnPressed()
 {
     //If Next Button visible or End Game or Nothing writed, do nop.
-    if (ui->next_button->isVisible() || endGame /*|| ui->lineEdit->text() == ""*/) {
+    if (ui->next_button->isVisible() || !ui->lineEdit->isVisible() || endGame /*|| ui->lineEdit->text() == ""*/) {
         return;
     }
 
@@ -175,9 +152,6 @@ void TransDialog::ending()
     ui->highname_label->setText("by " + best_player);
 
     ui->end_button->setVisible(true);
-    ui->username_label->setVisible(true);
-    ui->logged_as->setVisible(true);
-    ui->username_label->setText(this->username);
     ui->highname_label->setVisible(true);
     ui->high_label->setVisible(true);
     ui->max_label->setVisible(true);
@@ -195,4 +169,77 @@ void TransDialog::setUsername(QString username)
 void TransDialog::on_end_button_clicked()
 {
     this->close();
+}
+
+void TransDialog::setPath(QString pathword)
+{
+    this->path=pathword;
+}
+
+void TransDialog::on_start_clicked()
+{
+    // Enter seems to make pbs ..
+    if (!ui->start->isVisible()) {
+        return;
+    }
+
+    //Check inital path
+    if (!fileExists(path)) {
+        qDebug() << "No such file";
+        ui->warning_label->setVisible(true);
+        return;
+    }
+
+    ui->start->close();
+
+    //Basic inits
+    endGame = false;
+    best_player = "Mme Duval";
+    score = 0;
+    min = 0;
+    nb = 0;
+
+    for (int i=0; i<MAXWORD; i++) {
+        used[i]=-1;
+    }
+
+    //Launch init of the wordlist.
+    ListeMot *listemot = new ListeMot(path);
+    listemot->initialiseListe();
+    enList = listemot->getenListe();
+    frList = listemot->getfrListe();
+    maxi = enList.size();
+    highscore = maxi;
+
+    qDebug() << nb;
+
+    //First generation
+    current = randAB(min,maxi);
+    used[nb]=current;
+
+    en = enList[current];
+    fr = frList[current];
+
+    ui->good_label->setText(en);
+    ui->label_7->setVisible(false);
+    ui->label_7->setText(fr);
+
+    //UI
+    ui->lcdNumber->display(score);
+    ui->progressBar->reset();
+    ui->progressBar->setRange(min,maxi);
+
+    ui->username_label->setText(this->username);
+    ui->username_label->setVisible(true);
+    ui->logged_as->setVisible(true);
+
+    ui->progressBar->setVisible(true);
+    ui->pushButton->show();
+    ui->lineEdit->show();
+    ui->label_4->setVisible(true);
+    ui->label_5->setVisible(true);
+    ui->label_10->setVisible(true);
+    ui->label_2->setVisible(true);
+    ui->label_9->setVisible(true);
+    ui->lcdNumber->setVisible(true);
 }

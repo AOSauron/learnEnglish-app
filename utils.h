@@ -9,5 +9,6 @@ using namespace std;
 
 int randAB(int a, int b);
 
+bool fileExists(QString path);
 
 #endif // UTILS_H

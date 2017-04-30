@@ -26,9 +26,16 @@ private slots:
 
     void on_lineEdit_returnPressed();
 
+    void on_actionload_clicked();
+
+    void on_buttonBox_accepted();
+
+    void on_buttonBox_rejected();
+
 private:
     Ui::MainWindow *ui;
     QString username;
+    QString pathword;
 };
 
 #endif // MAINWINDOW_H

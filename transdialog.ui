@@ -490,6 +490,48 @@
     <string>Got it !</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="start">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>280</y>
+     <width>261</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Meiryo UI</family>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>I'm ready !</string>
+   </property>
+   <property name="default">
+    <bool>false</bool>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="warning_label">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>400</y>
+     <width>661</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#ff0000;&quot;&gt;The CSV file does &lt;/span&gt;&lt;span style=&quot; font-size:10pt; font-weight:600; text-decoration: underline; color:#ff0000;&quot;&gt;NOT&lt;/span&gt;&lt;span style=&quot; font-size:10pt; color:#ff0000;&quot;&gt; exist.&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#ff0000;&quot;&gt;Please close this windows, then in the main menu :&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#ff0000;&quot;&gt;'Settings' -&amp;gt; 'Load custom CSV vocabulary file ...' &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:10pt; color:#ff0000;&quot;&gt;and give an existing file.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
   <zorder>end_button</zorder>
   <zorder>lcdMax</zorder>
   <zorder>lcdScoreFinal</zorder>
@@ -516,6 +558,8 @@
   <zorder>high_label</zorder>
   <zorder>logged_as</zorder>
   <zorder>username_label</zorder>
+  <zorder>start</zorder>
+  <zorder>warning_label</zorder>
  </widget>
  <resources/>
  <connections/>

@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "utils.h"
 #include "ui_mainwindow.h"
 #include "transdialog.h"
 #include "verbdialog.h"
@@ -13,6 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //Hide the 2 game button
     ui->pushButton->setVisible(false);
     ui->pushButton_2->setVisible(false);
+    ui->label_warning->setVisible(false);
+    ui->widget->close();
+
+    pathword = "C:\\Ethminer\\dataword.csv";
+
+    connect(ui->actionLoad_vocabulary_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -22,13 +29,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    exit(0);
+    this->close();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
     TransDialog transdialog;
     transdialog.setUsername(username);
+    transdialog.setPath(pathword);
     transdialog.setModal(true);
     transdialog.exec();
 }
@@ -59,4 +67,32 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_lineEdit_returnPressed()
 {
     MainWindow::on_pushButton_4_clicked();
+}
+
+void MainWindow::on_actionload_clicked()
+{
+    ui->lineEdit_2->setText(pathword);
+    ui->widget->show();
+}
+
+void MainWindow::on_buttonBox_accepted()
+{
+    // SAVE DATA
+    pathword = ui->lineEdit_2->text();
+
+    //Check path
+    if (!fileExists(pathword)) {
+        qDebug() << "No such file";
+        ui->label_warning->setVisible(true);
+        return;
+    }
+
+    ui->label_warning->setVisible(false);
+    ui->widget->close();
+}
+
+void MainWindow::on_buttonBox_rejected()
+{
+    // DO NOT SAVE
+    ui->widget->close();
 }

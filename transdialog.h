@@ -18,6 +18,7 @@ public:
     bool TransDialog::is_tested(int index);
     void TransDialog::ending();
     void TransDialog::setUsername(QString username);
+    void TransDialog::setPath(QString pathword);
 
 private slots:
     void on_lineEdit_returnPressed();
@@ -27,6 +28,8 @@ private slots:
     void on_next_button_clicked();
 
     void on_end_button_clicked();
+
+    void on_start_clicked();
 
 private:
     Ui::TransDialog *ui;
@@ -44,6 +47,7 @@ private:
     QString fr;
     QString best_player;
     QString username;
+    QString path;
 };
 
 #endif // TRANSDIALOG_H
