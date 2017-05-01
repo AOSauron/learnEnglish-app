@@ -40,3 +40,12 @@ bool is_tested(int index, int tab [], int maximum)
 
     return false;
 }
+
+QStringList make_empty(QStringList list)
+{
+    while (!list.isEmpty()) {
+        list.removeLast();
+    }
+
+    return list;
+}

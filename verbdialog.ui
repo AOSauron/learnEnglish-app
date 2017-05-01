@@ -663,7 +663,7 @@ p, li { white-space: pre-wrap; }
   <widget class="Line" name="line_4">
    <property name="geometry">
     <rect>
-     <x>890</x>
+     <x>910</x>
      <y>190</y>
      <width>3</width>
      <height>61</height>
@@ -685,7 +685,7 @@ p, li { white-space: pre-wrap; }
   <widget class="Line" name="line_5">
    <property name="geometry">
     <rect>
-     <x>770</x>
+     <x>790</x>
      <y>240</y>
      <width>121</width>
      <height>16</height>
@@ -707,7 +707,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="percentage">
    <property name="geometry">
     <rect>
-     <x>800</x>
+     <x>820</x>
      <y>200</y>
      <width>101</width>
      <height>41</height>
@@ -746,7 +746,7 @@ p, li { white-space: pre-wrap; }
   <widget class="Line" name="line_6">
    <property name="geometry">
     <rect>
-     <x>760</x>
+     <x>780</x>
      <y>190</y>
      <width>21</width>
      <height>61</height>
@@ -765,7 +765,7 @@ p, li { white-space: pre-wrap; }
   <widget class="Line" name="line_7">
    <property name="geometry">
     <rect>
-     <x>770</x>
+     <x>790</x>
      <y>190</y>
      <width>121</width>
      <height>16</height>
@@ -784,7 +784,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QLabel" name="label_percent">
    <property name="geometry">
     <rect>
-     <x>780</x>
+     <x>800</x>
      <y>170</y>
      <width>101</width>
      <height>21</height>

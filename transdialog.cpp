@@ -267,7 +267,7 @@ void TransDialog::initListe()
     while(!file.atEnd()) {
         QByteArray line = file.readLine();
         enList.append(line.split(',').first());
-        frList.append(line.split(',').at(1));
+        frList.append(QString::fromUtf8(line.split(',').at(1)));
     }
 
     //Call truncate() on liste meaning

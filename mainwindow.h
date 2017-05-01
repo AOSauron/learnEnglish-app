@@ -14,6 +14,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void MainWindow::initListe();
 
 private slots:
     void on_pushButton_3_clicked();
@@ -30,6 +31,8 @@ private slots:
 
     void on_actionload2_clicked();
 
+    void on_actionload3_clicked();
+
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
@@ -38,11 +41,21 @@ private slots:
 
     void on_buttonBox_2_rejected();
 
+    void on_buttonBox_3_accepted();
+
+    void on_buttonBox_3_rejected();
+
 private:
     Ui::MainWindow *ui;
     QString username;
     QString pathword;
     QString pathverb;
+    QString pathsave;
+    QStringList users;
+    QStringList highwords;
+    QStringList highverbs;
+    QString userhighword;
+    QString userhighverb;
 };
 
 #endif // MAINWINDOW_H
