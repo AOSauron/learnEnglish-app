@@ -19,6 +19,7 @@ public:
     void TransDialog::ending();
     void TransDialog::setUsername(QString username);
     void TransDialog::setPath(QString pathword);
+    void TransDialog::initListe();
 
 private slots:
     void on_lineEdit_returnPressed();

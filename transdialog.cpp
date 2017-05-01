@@ -1,11 +1,11 @@
 #include "transdialog.h"
 #include "ui_transdialog.h"
-#include "listemot.h"
 #include "utils.h"
 #include <QtGlobal>
 #include <stdio.h>
 #include <stdlib.h>
 #include <QDebug>
+#include <QFile>
 
 TransDialog::TransDialog(QWidget *parent) :
     QDialog(parent),
@@ -38,6 +38,13 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->label_9->setVisible(false);
     ui->lcdNumber->setVisible(false);
     ui->warning_label->setVisible(false);
+    ui->percent->setVisible(false);
+    ui->percentage->setVisible(false);
+    ui->line->setVisible(false);
+    ui->line_2->setVisible(false);
+    ui->line_3->setVisible(false);
+    ui->line_4->setVisible(false);
+    ui->label_percent->setVisible(false);
 }
 
 TransDialog::~TransDialog()
@@ -47,8 +54,8 @@ TransDialog::~TransDialog()
 
 void TransDialog::on_lineEdit_returnPressed()
 {
-    //If Next Button visible or End Game or Nothing writed, do nop.
-    if (ui->next_button->isVisible() || !ui->lineEdit->isVisible() || endGame /*|| ui->lineEdit->text() == ""*/) {
+    //If Next Button visible or End Game or Nothing writed, do nop/next action.
+    if (ui->next_button->isVisible() || !ui->lineEdit->isVisible() || endGame || ui->lineEdit->text() == "") {
         return;
     }
 
@@ -75,6 +82,7 @@ void TransDialog::on_lineEdit_returnPressed()
 
     //Print next button
     ui->next_button->setVisible(true);
+
 }
 
 //Press enter
@@ -95,7 +103,7 @@ void TransDialog::on_next_button_clicked()
     ui->lineEdit->clear();
     ui->next_button->setVisible(false);
 
-    qDebug() << nb;
+    //qDebug() << nb;
 
     //Game end reached
     if (nb==maxi) {
@@ -159,6 +167,18 @@ void TransDialog::ending()
     ui->lcdHigh->setVisible(true);
     ui->lcdMax->setVisible(true);
     ui->lcdScoreFinal->setVisible(true);
+    ui->percent->setVisible(true);
+
+    float percent = score*100/maxi;
+    QString percentage = QString(" %1 % ").arg(percent);
+
+    ui->percentage->setText(percentage);
+    ui->percentage->setVisible(true);
+    ui->line->setVisible(true);
+    ui->line_2->setVisible(true);
+    ui->line_3->setVisible(true);
+    ui->line_4->setVisible(true);
+    ui->label_percent->setVisible(true);
 }
 
 void TransDialog::setUsername(QString username)
@@ -194,7 +214,7 @@ void TransDialog::on_start_clicked()
 
     //Basic inits
     endGame = false;
-    best_player = "Mme Duval";
+    best_player = "Ms Duval";
     score = 0;
     min = 0;
     nb = 0;
@@ -204,12 +224,10 @@ void TransDialog::on_start_clicked()
     }
 
     //Launch init of the wordlist.
-    ListeMot *listemot = new ListeMot(path);
-    listemot->initialiseListe();
-    enList = listemot->getenListe();
-    frList = listemot->getfrListe();
+    initListe();
+
     maxi = enList.size();
-    highscore = maxi;
+    highscore = 100;
 
     qDebug() << nb;
 
@@ -220,11 +238,11 @@ void TransDialog::on_start_clicked()
     en = enList[current];
     fr = frList[current];
 
+    //UI
     ui->good_label->setText(en);
     ui->label_7->setVisible(false);
     ui->label_7->setText(fr);
 
-    //UI
     ui->lcdNumber->display(score);
     ui->progressBar->reset();
     ui->progressBar->setRange(min,maxi);
@@ -242,4 +260,23 @@ void TransDialog::on_start_clicked()
     ui->label_2->setVisible(true);
     ui->label_9->setVisible(true);
     ui->lcdNumber->setVisible(true);
+
+}
+
+void TransDialog::initListe()
+{
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qDebug() << file.errorString();
+        return;
+    }
+
+    while(!file.atEnd()) {
+        QByteArray line = file.readLine();
+        enList.append(line.split(',').first());
+        frList.append(line.split(',').at(1));
+    }
+
+    //Call truncate() on liste meaning
+    frList = truncate(frList);
 }

@@ -28,14 +28,21 @@ private slots:
 
     void on_actionload_clicked();
 
+    void on_actionload2_clicked();
+
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
+
+    void on_buttonBox_2_accepted();
+
+    void on_buttonBox_2_rejected();
 
 private:
     Ui::MainWindow *ui;
     QString username;
     QString pathword;
+    QString pathverb;
 };
 
 #endif // MAINWINDOW_H

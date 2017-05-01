@@ -15,11 +15,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->pushButton->setVisible(false);
     ui->pushButton_2->setVisible(false);
     ui->label_warning->setVisible(false);
+    ui->label_warning_2->setVisible(false);
     ui->widget->close();
+    ui->widget_2->close();
 
     pathword = "C:\\Ethminer\\dataword.csv";
+    pathverb = "C:\\Ethminer\\dataverbs.csv";
 
     connect(ui->actionLoad_vocabulary_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload_clicked()));
+    connect(ui->actionLoad_irregular_verbs_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload2_clicked()));
 }
 
 MainWindow::~MainWindow()
@@ -44,6 +48,8 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_pushButton_2_clicked()
 {
     VerbDialog verbdialog;
+    verbdialog.setUsername(username);
+    verbdialog.setPath(pathverb);
     verbdialog.setModal(true);
     verbdialog.exec();
 }
@@ -75,6 +81,15 @@ void MainWindow::on_actionload_clicked()
     ui->widget->show();
 }
 
+void MainWindow::on_actionload2_clicked()
+{
+    ui->lineEdit_4->setText(pathverb);
+    ui->widget_2->show();
+}
+
+/*
+ * Accpet/Reject for load file
+ */
 void MainWindow::on_buttonBox_accepted()
 {
     // SAVE DATA
@@ -95,4 +110,26 @@ void MainWindow::on_buttonBox_rejected()
 {
     // DO NOT SAVE
     ui->widget->close();
+}
+
+void MainWindow::on_buttonBox_2_accepted()
+{
+    // SAVE DATA
+    pathverb = ui->lineEdit_4->text();
+
+    //Check path
+    if (!fileExists(pathverb)) {
+        qDebug() << "No such file";
+        ui->label_warning_2->setVisible(true);
+        return;
+    }
+
+    ui->label_warning_2->setVisible(false);
+    ui->widget_2->close();
+}
+
+void MainWindow::on_buttonBox_2_rejected()
+{
+    // DO NOT SAVE
+    ui->widget_2->close();
 }

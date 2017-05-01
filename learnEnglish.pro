@@ -37,3 +37,7 @@ FORMS    += mainwindow.ui \
 
 OTHER_FILES += \
     dataword.csv
+
+DISTFILES += \
+    dataverb.csv \
+    saves.csv
