@@ -15,20 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     transdialog.cpp \
-    mot.cpp \
-    verbe.cpp \
     utils.cpp \
-    listeverbe.cpp \
-    listemot.cpp \
     verbdialog.cpp
 
 HEADERS  += mainwindow.h \
     transdialog.h \
-    verbe.h \
-    mot.h \
     utils.h \
-    listemot.h \
-    listeverbe.h \
     verbdialog.h
 
 FORMS    += mainwindow.ui \
