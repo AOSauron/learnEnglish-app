@@ -15,11 +15,10 @@ class TransDialog : public QDialog
 public:
     explicit TransDialog(QWidget *parent = 0);
     ~TransDialog();
-    //bool TransDialog::is_tested(int index);
-    void TransDialog::ending();
-    void TransDialog::setUsername(QString username);
-    void TransDialog::setPath(QString pathword);
-    void TransDialog::initListe();
+    void ending();
+    void setUsername(QString username);
+    void setPath(QString pathword);
+    void initListe();
 
 private slots:
     void on_lineEdit_returnPressed();

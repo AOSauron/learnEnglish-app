@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void MainWindow::initListe();
+    void initListe();
 
 private slots:
     void on_pushButton_3_clicked();
