@@ -12,6 +12,50 @@ VerbDialog::VerbDialog(QWidget *parent) :
     ui->setupUi(this);
 
     ui->warning_label->setVisible(false);
+    ui->username_label->setVisible(false);
+    ui->logged_as->setVisible(false);
+    ui->lineEdit->setVisible(false);
+    ui->lineEdit_2->setVisible(false);
+    ui->pushButton->setVisible(false);
+    ui->line->setVisible(false);
+    ui->line_2->setVisible(false);
+    ui->line_3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
+    ui->label_7->setVisible(false);
+    ui->next_button->setVisible(false);
+    ui->label_8->setVisible(false);
+    ui->label_9->setVisible(false);
+    ui->lcdNumber->setVisible(false);
+    ui->progressBar->setVisible(false);
+    ui->wrong_left->setVisible(false);
+    ui->right_left->setVisible(false);
+    ui->wrong_right->setVisible(false);
+    ui->right_right->setVisible(false);
+    ui->good_left->setVisible(false);
+    ui->good_right->setVisible(false);
+    ui->correct_left->setVisible(false);
+    ui->correct_right->setVisible(false);
+    ui->end_button->setVisible(false);
+    ui->highname_label->setVisible(false);
+    ui->high_label->setVisible(false);
+    ui->max_label->setVisible(false);
+    ui->congrat_label->setVisible(false);
+    ui->lcdHigh->setVisible(false);
+    ui->lcdMax->setVisible(false);
+    ui->lcdScoreFinal->setVisible(false);
+    ui->percent->setVisible(false);
+    ui->percentage->setVisible(false);
+    ui->line->setVisible(false);
+    ui->line_5->setVisible(false);
+    ui->line_6->setVisible(false);
+    ui->line_4->setVisible(false);
+    ui->line_7->setVisible(false);
+    ui->label_percent->setVisible(false);
 }
 
 VerbDialog::~VerbDialog()
@@ -42,6 +86,7 @@ void VerbDialog::on_start_clicked()
     min = 0;
     nb = 0;
 
+
     for (int i=0; i<MAXVERB; i++) {
         used[i]=-1;
     }
@@ -52,6 +97,10 @@ void VerbDialog::on_start_clicked()
     maxi = inf.size();
     highscore = 100;
 
+    ui->lcdNumber->display(score);
+    ui->progressBar->reset();
+    ui->progressBar->setRange(min,maxi);
+
     //First generation
     current = randAB(min,maxi);
     used[nb]=current;
@@ -59,7 +108,31 @@ void VerbDialog::on_start_clicked()
     infc = inf[current];
     pretc = pret[current];
     pastpc = pastp[current];
-    meaningc = meaningc[current];
+    meaningc = meaning[current];
+
+    ui->username_label->setText(this->username);
+    ui->username_label->setVisible(true);
+    ui->logged_as->setVisible(true);
+
+    ui->lineEdit->setVisible(true);
+    ui->lineEdit_2->setVisible(true);
+    ui->pushButton->setVisible(true);
+    ui->line->setVisible(true);
+    ui->line_2->setVisible(true);
+    ui->line_3->setVisible(true);
+    ui->label->setVisible(true);
+    ui->label_2->setVisible(true);
+    ui->label_3->setVisible(true);
+    ui->label_4->setVisible(true);
+    ui->label_5->setText(infc);
+    ui->label_6->setText(meaningc);
+    ui->label_5->setVisible(true);
+    ui->label_7->setVisible(true);
+    ui->label_8->setVisible(true);
+    ui->label_9->setVisible(true);
+    ui->lcdNumber->setVisible(true);
+    ui->progressBar->setVisible(true);
+
 
 }
 
@@ -75,7 +148,7 @@ void VerbDialog::setPath(QString pathverb)
 
 void VerbDialog::initListe()
 {
-    qDebug() << path;
+    //qDebug() << path;
 
     QFile file(path);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -88,14 +161,171 @@ void VerbDialog::initListe()
         inf.append(line.split(',').first());
         pret.append(line.split(',').at(1));
         pastp.append(line.split(',').at(2));
-        meaning.append(line.split(',').at(3));
+        meaning.append(QString::fromUtf8(line.split(',').at(3)));
     }
 
     //Call truncate() on liste meaning
     meaning = truncate(meaning);
 
-    qDebug() << inf;
-    qDebug() << pret;
-    qDebug() << pastp;
-    qDebug() << meaning;
+    //qDebug() << inf;
+    //qDebug() << pret;
+    //qDebug() << pastp;
+    //qDebug() << meaning;
+}
+
+void VerbDialog::on_pushButton_clicked()
+{
+    //If one of the lineEdit is empty, or nextbutton visible, do nop.
+    if (ui->lineEdit->text() == "" || ui->lineEdit_2->text() == "" || ui->next_button->isVisible()) {
+        return;
+    }
+
+    //UI stuff
+    ui->pushButton->setVisible(false);
+    ui->next_button->setVisible(true);
+    ui->label_6->setVisible(true);
+
+    //Validation preterite
+    if (ui->lineEdit->text() == pretc) {
+        ui->right_left->setVisible(true);
+        score++;
+    }
+    else if (ui->lineEdit->text() != pretc) {
+        ui->wrong_left->setVisible(true);
+        ui->correct_left->setVisible(true);
+        ui->good_left->setText(pretc);
+        ui->good_left->setVisible(true);
+    }
+
+    //Validation past participle
+    if (ui->lineEdit_2->text() == pastpc) {
+        ui->right_right->setVisible(true);
+        score++;
+    }
+    else if (ui->lineEdit_2->text() != pastpc) {
+        ui->wrong_right->setVisible(true);
+        ui->correct_right->setVisible(true);
+        ui->good_right->setText(pastpc);
+        ui->good_right->setVisible(true);
+    }
+
+    //Nb of words tested
+    nb++;
+    ui->progressBar->setValue(nb);
+    ui->lcdNumber->display(score);
+}
+
+void VerbDialog::on_lineEdit_2_returnPressed()
+{
+    on_pushButton_clicked();
+}
+
+void VerbDialog::on_lineEdit_returnPressed()
+{
+    on_pushButton_clicked();
+}
+
+void VerbDialog::on_next_button_clicked()
+{
+    //Hide next button and other stuff
+    ui->next_button->setVisible(false);
+    ui->pushButton->setVisible(true);
+    ui->label_6->setVisible(false);
+    ui->lineEdit->clear();
+    ui->lineEdit_2->clear();
+    ui->wrong_left->setVisible(false);
+    ui->right_left->setVisible(false);
+    ui->wrong_right->setVisible(false);
+    ui->right_right->setVisible(false);
+    ui->good_left->setVisible(false);
+    ui->good_right->setVisible(false);
+    ui->correct_left->setVisible(false);
+    ui->correct_right->setVisible(false);
+
+    //Game end reached
+    if (nb==maxi) {
+        endGame = true;
+        ending();
+        return;
+    }
+
+    //Change the verb
+    for (int i=0; i<maxi; i++) {
+        current = randAB(min,maxi);
+        if (!is_tested(current, used, maxi)) break;
+    }
+
+    //Add to array 'used'
+    used[nb]=current;
+
+    //Displaying new word
+    infc = inf[current];
+    pretc = pret[current];
+    pastpc = pastp[current];
+    meaningc = meaning[current];
+
+    ui->label_5->setText(infc);
+    ui->label_6->setText(meaningc);
+}
+
+void VerbDialog::ending()
+{
+    //Hide most of all widgets
+    ui->lineEdit->setVisible(false);
+    ui->lineEdit_2->setVisible(false);
+    ui->pushButton->setVisible(false);
+    ui->line->setVisible(false);
+    ui->line_2->setVisible(false);
+    ui->line_3->setVisible(false);
+    ui->label->setVisible(false);
+    ui->label_2->setVisible(false);
+    ui->label_3->setVisible(false);
+    ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
+    ui->label_6->setVisible(false);
+    ui->label_7->setVisible(false);
+    ui->next_button->setVisible(false);
+    ui->label_8->setVisible(false);
+    ui->label_9->setVisible(false);
+    ui->lcdNumber->setVisible(false);
+    ui->progressBar->setVisible(false);
+    ui->wrong_left->setVisible(false);
+    ui->right_left->setVisible(false);
+    ui->wrong_right->setVisible(false);
+    ui->right_right->setVisible(false);
+    ui->good_left->setVisible(false);
+    ui->good_right->setVisible(false);
+    ui->correct_left->setVisible(false);
+    ui->correct_right->setVisible(false);
+
+    ui->lcdScoreFinal->display(score);
+    ui->lcdMax->display(maxi*2);
+    ui->lcdHigh->display(highscore);
+    ui->highname_label->setText("by " + best_player);
+
+    ui->end_button->setVisible(true);
+    ui->highname_label->setVisible(true);
+    ui->high_label->setVisible(true);
+    ui->max_label->setVisible(true);
+    ui->congrat_label->setVisible(true);
+    ui->lcdHigh->setVisible(true);
+    ui->lcdMax->setVisible(true);
+    ui->lcdScoreFinal->setVisible(true);
+    ui->percent->setVisible(true);
+
+    float percent = score*100/(maxi*2);
+    QString percentage = QString(" %1 % ").arg(percent);
+
+    ui->percentage->setText(percentage);
+    ui->percentage->setVisible(true);
+    ui->line_5->setVisible(true);
+    ui->line_6->setVisible(true);
+    ui->line_7->setVisible(true);
+    ui->line_4->setVisible(true);
+    ui->label_percent->setVisible(true);
+}
+
+void VerbDialog::on_end_button_clicked()
+{
+    this->close();
 }

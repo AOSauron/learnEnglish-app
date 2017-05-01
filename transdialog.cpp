@@ -45,6 +45,7 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->line_3->setVisible(false);
     ui->line_4->setVisible(false);
     ui->label_percent->setVisible(false);
+
 }
 
 TransDialog::~TransDialog()
@@ -63,12 +64,14 @@ void TransDialog::on_lineEdit_returnPressed()
     QString response = ui->lineEdit->text();
     QString good = ui->label_7->text();
     ui->label_6->setText(response);
-    ui->label_6->setVisible(true);
-    ui->label_7->setVisible(true);
 
     //Validation
     if (good!=response) {
         ui->label_8->setVisible(true);
+        ui->label_4->setVisible(true);
+        ui->label_5->setVisible(true);
+        ui->label_6->setVisible(true);
+        ui->label_7->setVisible(true);
     }
     else {
         ui->label_11->setVisible(true);
@@ -95,6 +98,8 @@ void TransDialog::on_pushButton_clicked()
 void TransDialog::on_next_button_clicked()
 {
     //Hide next button and other stuff
+    ui->label_4->setVisible(false);
+    ui->label_5->setVisible(false);
     ui->label_8->setVisible(false);
     ui->label_11->setVisible(false);
     ui->label_6->setVisible(false);
@@ -115,7 +120,7 @@ void TransDialog::on_next_button_clicked()
     //Change the word to translate
     for (int i=0; i<maxi; i++) {
         current = randAB(min,maxi);
-        if (!is_tested(current)) break;
+        if (!is_tested(current, used, maxi)) break;
     }
 
     //Add to array 'used'
@@ -129,16 +134,6 @@ void TransDialog::on_next_button_clicked()
     ui->good_label->setVisible(true);
     ui->label_7->setVisible(false);
     ui->label_7->setText(fr);
-}
-
-//Check if a word has been tested
-bool TransDialog::is_tested(int index)
-{
-    for (int i=0; i<maxi; i++) {
-        if (used[i]==index) return true;
-    }
-
-    return false;
 }
 
 //End Game function
@@ -254,8 +249,6 @@ void TransDialog::on_start_clicked()
     ui->progressBar->setVisible(true);
     ui->pushButton->show();
     ui->lineEdit->show();
-    ui->label_4->setVisible(true);
-    ui->label_5->setVisible(true);
     ui->label_10->setVisible(true);
     ui->label_2->setVisible(true);
     ui->label_9->setVisible(true);

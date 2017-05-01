@@ -31,3 +31,12 @@ QStringList truncate(QStringList list)
     }
     return list;
 }
+
+bool is_tested(int index, int tab [], int maximum)
+{
+    for (int i=0; i<maximum; i++) {
+        if (tab[i]==index) return true;
+    }
+
+    return false;
+}

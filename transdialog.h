@@ -15,7 +15,7 @@ class TransDialog : public QDialog
 public:
     explicit TransDialog(QWidget *parent = 0);
     ~TransDialog();
-    bool TransDialog::is_tested(int index);
+    //bool TransDialog::is_tested(int index);
     void TransDialog::ending();
     void TransDialog::setUsername(QString username);
     void TransDialog::setPath(QString pathword);

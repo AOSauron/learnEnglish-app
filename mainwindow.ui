@@ -495,6 +495,7 @@
     </property>
     <addaction name="actionLoad_vocabulary_CSV_file"/>
     <addaction name="actionLoad_irregular_verbs_CSV_file"/>
+    <addaction name="actionLoad_save_CSV_file"/>
    </widget>
    <addaction name="menuSettings"/>
   </widget>
@@ -523,6 +524,16 @@
   <action name="actionLoad_irregular_verbs_CSV_file">
    <property name="text">
     <string>Load irregular verbs CSV file ...</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Meiryo UI</family>
+    </font>
+   </property>
+  </action>
+  <action name="actionLoad_save_CSV_file">
+   <property name="text">
+    <string>Load save CSV file ...</string>
    </property>
    <property name="font">
     <font>

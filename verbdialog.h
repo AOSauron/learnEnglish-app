@@ -15,7 +15,7 @@ class VerbDialog : public QDialog
 public:
     explicit VerbDialog(QWidget *parent = 0);
     ~VerbDialog();
-    bool VerbDialog::is_tested(int index);
+    //bool VerbDialog::is_tested(int index);
     void VerbDialog::ending();
     void VerbDialog::setUsername(QString username);
     void VerbDialog::setPath(QString pathverb);
@@ -23,6 +23,16 @@ public:
 
 private slots:
     void on_start_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_lineEdit_2_returnPressed();
+
+    void on_lineEdit_returnPressed();
+
+    void on_next_button_clicked();
+
+    void on_end_button_clicked();
 
 private:
     Ui::VerbDialog *ui;
