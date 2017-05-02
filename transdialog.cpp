@@ -28,6 +28,11 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->logged_as->setVisible(false);
     ui->end_button->setVisible(false);
 
+    QPixmap pixmap2("british-icon.png");
+    QPixmap pixmap3("france-icon.png");
+    ui->label_image->setPixmap(pixmap2);
+    ui->label_image_2->setPixmap(pixmap3);
+
     ui->progressBar->setVisible(false);
     ui->pushButton->setVisible(false);
     ui->lineEdit->setVisible(false);
@@ -63,13 +68,14 @@ void TransDialog::on_lineEdit_returnPressed()
     //Else, do stuff
     QString response = ui->lineEdit->text();
     QString good = ui->label_7->text();
-    ui->label_6->setText(response);
+
 
     //Validation
     if (good!=response) {
         ui->label_8->setVisible(true);
         ui->label_4->setVisible(true);
         ui->label_5->setVisible(true);
+        ui->label_6->setText(response);
         ui->label_6->setVisible(true);
         ui->label_7->setVisible(true);
     }
@@ -183,7 +189,7 @@ void TransDialog::setUsername(QString username)
 
 void TransDialog::on_end_button_clicked()
 {
-    this->close();
+    this->setVisible(false);
 }
 
 void TransDialog::setPath(QString pathword)
@@ -209,7 +215,6 @@ void TransDialog::on_start_clicked()
 
     //Basic inits
     endGame = false;
-    best_player = "Ms Duval";
     score = 0;
     min = 0;
     nb = 0;
@@ -222,7 +227,6 @@ void TransDialog::on_start_clicked()
     initListe();
 
     maxi = enList.size();
-    highscore = 100;
 
     qDebug() << nb;
 
@@ -272,4 +276,26 @@ void TransDialog::initListe()
 
     //Call truncate() on liste meaning
     frList = truncate(frList);
+}
+
+QString TransDialog::getHighscore()
+{
+    int res =  this->score;
+    if (score !=0) res = score*100/maxi;
+    return QString::number(res);
+}
+
+void TransDialog::resetHighscore()
+{
+    this->score = 0;
+}
+
+void TransDialog::setHighestscore(QString value)
+{
+    this->highscore = value.toInt();
+}
+
+void TransDialog::setBest(QString bestplayer)
+{
+    this->best_player = bestplayer;
 }

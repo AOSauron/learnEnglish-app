@@ -18,6 +18,10 @@ public:
     void ending();
     void setUsername(QString username);
     void setPath(QString pathverb);
+    QString getHighscore();
+    void setHighestscore(QString value);
+    void setBest(QString bestplayer);
+    void resetHighscore();
     void initListe();
 
 private slots:

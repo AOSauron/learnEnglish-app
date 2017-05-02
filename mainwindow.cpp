@@ -19,13 +19,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->label_warning_2->setVisible(false);
     ui->label_warning_3->setVisible(false);
     ui->save_warning->setVisible(false);
+    ui->highscore_1->setVisible(false);
+    ui->highscore_2->setVisible(false);
+    ui->highvalue_1->setVisible(false);
+    ui->highvalue_2->setVisible(false);
+    ui->pushButton_5->setVisible(false);
     ui->widget->close();
     ui->widget_2->close();
     ui->widget_3->close();
 
-    pathword = "C:\\Ethminer\\dataword.csv";
-    pathverb = "C:\\Ethminer\\dataverbs.csv";
-    pathsave = "C:\\Ethminer\\savegs.csv";
+    QPixmap pixmap("icon.png");
+    QIcon ButtonIcon(pixmap);
+    ui->pushButton_5->setIcon(ButtonIcon);
+    ui->pushButton_5->setIconSize(pixmap.rect().size());
+
+    QPixmap pixmap2("british-icon.png");
+    QPixmap pixmap3("france-icon.png");
+    ui->label_image->setPixmap(pixmap2);
+    ui->label_image_2->setPixmap(pixmap3);
+
+    transdialog.resetHighscore();
+    verbdialog.resetHighscore();
+
+    pathword = "dataword.csv";
+    pathverb = "dataverbs.csv";
+    pathsave = "saves.csv";
 
     connect(ui->actionLoad_vocabulary_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload_clicked()));
     connect(ui->actionLoad_irregular_verbs_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload2_clicked()));
@@ -39,12 +57,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    if (!ui->pushButton_4->isVisible()) {
+        updateData();
+    }
     this->close();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
-    TransDialog transdialog;
     transdialog.setUsername(username);
     transdialog.setPath(pathword);
     transdialog.setModal(true);
@@ -53,7 +73,6 @@ void MainWindow::on_pushButton_clicked()
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    VerbDialog verbdialog;
     verbdialog.setUsername(username);
     verbdialog.setPath(pathverb);
     verbdialog.setModal(true);
@@ -62,21 +81,25 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
+    int index;
+
     username=ui->lineEdit->text();
-    if (username == "" || username == " " || username == "," || username == "." || username == ";" || username == "  ") {
+    username.remove(QRegExp("[/^\\s/]"));
+    username.remove(QRegExp("[/^\,/]"));
+    if (username == "" || username == "," || username == "." || username == ";") {
         ui->label->setText("Username is not valid !");
         return;
     }
     ui->pushButton_4->setVisible(false);
     ui->lineEdit->setVisible(false);
     ui->label->setVisible(false);
+    ui->label_8->setVisible(false);
     ui->label_3->setText("Your are logged under : ");
     ui->label_4->setText(username);
 
     if (fileExists(pathsave)) {
         initListe();
-        ui->pushButton->setVisible(true);
-        ui->pushButton_2->setVisible(true);
+        loadHighscores();
     }
     else {
         ui->save_warning->setVisible(true);
@@ -179,8 +202,7 @@ void MainWindow::on_buttonBox_3_accepted()
     ui->widget_3->close();
 
     if (!ui->pushButton_4->isVisible()) {
-        ui->pushButton->setVisible(true);
-        ui->pushButton_2->setVisible(true);
+        loadHighscores();
     }
 }
 
@@ -205,12 +227,112 @@ void MainWindow::initListe()
         highverbs.append(line.split(',').at(2));
     }
 
-    //Call truncate() on liste highverbs
+    //Call truncate() on liste highverbs, and delete white spaces of users
     highverbs = truncate(highverbs);
+    users = noWhiteSpace(users);
 
     qDebug() << users;
-    qDebug() << highverbs;
     qDebug() << highwords;
+    qDebug() << highverbs;
 }
 
 
+void MainWindow::on_lineEdit_2_returnPressed()
+{
+    on_buttonBox_accepted();
+}
+
+void MainWindow::on_lineEdit_4_returnPressed()
+{
+    on_buttonBox_2_accepted();
+}
+
+void MainWindow::on_lineEdit_5_returnPressed()
+{
+    on_buttonBox_3_accepted();
+}
+
+void MainWindow::setHighWord(QString value)
+{
+    this->ownhighword = value;
+}
+
+void MainWindow::setHighVerb(QString value)
+{
+    this->ownhighverb = value;
+}
+
+void MainWindow::updateData()
+{
+    QFile file(pathsave);
+    if (!file.open(QIODevice::ReadWrite | QFile::Truncate)) {
+        qDebug() << file.errorString();
+        return;
+    }
+
+    QTextStream stream(&file);
+
+    int size = users.size();
+
+    //Gather scores
+    int index = users.indexOf(username);
+    if (ownhighword.toInt() <= transdialog.getHighscore().toInt()) highwords[index] = transdialog.getHighscore();
+    if (ownhighverb.toInt() <= verbdialog.getHighscore().toInt()) highverbs[index] = verbdialog.getHighscore();
+
+    for (int i=0; i<size; i++) {
+        stream << users[i] + "," + highwords[i] + "," + highverbs[i] << endl;
+    }
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    if (ownhighword.toInt() <= transdialog.getHighscore().toInt()) {
+        ownhighword = transdialog.getHighscore();
+        ui->highvalue_1->setText(ownhighword + " %");
+    }
+
+    if (ownhighverb.toInt() <= verbdialog.getHighscore().toInt()) {
+        ownhighverb = verbdialog.getHighscore();
+        ui->highvalue_2->setText(ownhighverb + " %");
+    }
+
+}
+
+void MainWindow::loadHighscores()
+{
+    QStringList bestVerb = bestVerbOrWord(users, highverbs);
+    QStringList bestWord = bestVerbOrWord(users, highwords);
+
+    qDebug() << bestVerb;
+    qDebug() << bestWord;
+    transdialog.setHighestscore(bestVerb[1]);
+    transdialog.setBest(bestVerb[0]);
+    verbdialog.setHighestscore(bestWord[1]);
+    verbdialog.setBest(bestWord[0]);
+
+    ui->pushButton->setVisible(true);
+    ui->pushButton_2->setVisible(true);
+    ui->pushButton_5->setVisible(true);
+
+    ui->highscore_1->setVisible(true);
+    ui->highscore_2->setVisible(true);
+
+    if (userExists(users, username)) {
+        int index = users.indexOf(username);
+        ownhighword = highwords[index];
+        ownhighverb = highverbs[index];
+    }
+    else {
+        ownhighword = "0";
+        ownhighverb = "0";
+        users.append(username);
+        highwords.append(ownhighword);
+        highverbs.append(ownhighverb);
+    }
+
+    ui->highvalue_1->setText(ownhighword + " %");
+    ui->highvalue_2->setText(ownhighverb + " %");
+
+    ui->highvalue_1->setVisible(true);
+    ui->highvalue_2->setVisible(true);
+}

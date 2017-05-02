@@ -56,6 +56,10 @@ VerbDialog::VerbDialog(QWidget *parent) :
     ui->line_4->setVisible(false);
     ui->line_7->setVisible(false);
     ui->label_percent->setVisible(false);
+    QPixmap pixmap2("british-icon.png");
+    QPixmap pixmap3("france-icon.png");
+    ui->label_image->setPixmap(pixmap2);
+    ui->label_image_2->setPixmap(pixmap3);
 }
 
 VerbDialog::~VerbDialog()
@@ -81,7 +85,6 @@ void VerbDialog::on_start_clicked()
 
     //Basic inits
     endGame = false;
-    best_player = "Ms Duval";
     score = 0;
     min = 0;
     nb = 0;
@@ -95,7 +98,6 @@ void VerbDialog::on_start_clicked()
     initListe();
 
     maxi = inf.size();
-    highscore = 100;
 
     ui->lcdNumber->display(score);
     ui->progressBar->reset();
@@ -176,7 +178,11 @@ void VerbDialog::initListe()
 void VerbDialog::on_pushButton_clicked()
 {
     //If one of the lineEdit is empty, or nextbutton visible, do nop.
-    if (ui->lineEdit->text() == "" || ui->lineEdit_2->text() == "" || ui->next_button->isVisible()) {
+    QString temppret = ui->lineEdit->text();
+    temppret.remove(QRegExp("[/ /]"));
+    QString temppast= ui->lineEdit_2->text();
+    temppast.remove(QRegExp("[/ /]"));
+    if (temppret == "" || temppast == "" || ui->next_button->isVisible()) {
         return;
     }
 
@@ -186,11 +192,12 @@ void VerbDialog::on_pushButton_clicked()
     ui->label_6->setVisible(true);
 
     //Validation preterite
-    if (ui->lineEdit->text() == pretc) {
+
+    if (temppret == pretc) {
         ui->right_left->setVisible(true);
         score++;
     }
-    else if (ui->lineEdit->text() != pretc) {
+    else if (temppret != pretc) {
         ui->wrong_left->setVisible(true);
         ui->correct_left->setVisible(true);
         ui->good_left->setText(pretc);
@@ -198,11 +205,12 @@ void VerbDialog::on_pushButton_clicked()
     }
 
     //Validation past participle
-    if (ui->lineEdit_2->text() == pastpc) {
+
+    if (temppast == pastpc) {
         ui->right_right->setVisible(true);
         score++;
     }
-    else if (ui->lineEdit_2->text() != pastpc) {
+    else if (temppast != pastpc) {
         ui->wrong_right->setVisible(true);
         ui->correct_right->setVisible(true);
         ui->good_right->setText(pastpc);
@@ -327,5 +335,27 @@ void VerbDialog::ending()
 
 void VerbDialog::on_end_button_clicked()
 {
-    this->close();
+    this->setVisible(false);
+}
+
+QString VerbDialog::getHighscore()
+{
+    int res =  this->score;
+    if (score !=0) res = score*100/(maxi*2);
+    return QString::number(res);
+}
+
+void VerbDialog::setHighestscore(QString value)
+{
+    this->highscore = value.toInt();
+}
+
+void VerbDialog::resetHighscore()
+{
+    this->score = 0;
+}
+
+void VerbDialog::setBest(QString bestplayer)
+{
+    this->best_player = bestplayer;
 }

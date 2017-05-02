@@ -673,13 +673,39 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
+  <widget class="QLabel" name="label_image">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>40</y>
+     <width>141</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>tr</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_image_2">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>40</y>
+     <width>141</width>
+     <height>141</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>tr</string>
+   </property>
+  </widget>
+  <zorder>highname_label</zorder>
   <zorder>warning_label</zorder>
   <zorder>label_6</zorder>
   <zorder>label_5</zorder>
   <zorder>label_7</zorder>
   <zorder>label_11</zorder>
   <zorder>start</zorder>
-  <zorder>highname_label</zorder>
   <zorder>high_label</zorder>
   <zorder>end_button</zorder>
   <zorder>lcdMax</zorder>
@@ -708,6 +734,8 @@
   <zorder>line_2</zorder>
   <zorder>line_3</zorder>
   <zorder>line_4</zorder>
+  <zorder>label_image</zorder>
+  <zorder>label_image_2</zorder>
  </widget>
  <resources/>
  <connections/>

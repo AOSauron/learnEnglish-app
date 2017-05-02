@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "transdialog.h"
+#include "verbdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -15,6 +17,10 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
     void initListe();
+    void setHighWord(QString value);
+    void setHighVerb(QString value);
+    void updateData();
+    void loadHighscores();
 
 private slots:
     void on_pushButton_3_clicked();
@@ -45,8 +51,18 @@ private slots:
 
     void on_buttonBox_3_rejected();
 
+    void on_lineEdit_2_returnPressed();
+
+    void on_lineEdit_4_returnPressed();
+
+    void on_lineEdit_5_returnPressed();
+
+    void on_pushButton_5_clicked();
+
 private:
     Ui::MainWindow *ui;
+    TransDialog transdialog;
+    VerbDialog verbdialog;
     QString username;
     QString pathword;
     QString pathverb;
@@ -56,6 +72,8 @@ private:
     QStringList highverbs;
     QString userhighword;
     QString userhighverb;
+    QString ownhighword;
+    QString ownhighverb;
 };
 
 #endif // MAINWINDOW_H

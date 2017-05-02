@@ -1,4 +1,5 @@
 #include <iostream>
+#include "utils.h"
 #include <string>
 #include <vector>
 #include <QtGlobal>
@@ -48,4 +49,45 @@ QStringList make_empty(QStringList list)
     }
 
     return list;
+}
+
+bool userExists(QStringList users, QString user)
+{
+    int size = users.size();
+
+    for (int i = 0; i<size; i++) {
+        if (users[i] == user) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QStringList noWhiteSpace(QStringList list)
+{
+    int size = list.size();
+
+    for (int i = 0; i<size; i++) {
+        list[i].remove(QRegExp("[/^\\s/]"));
+    }
+    return list;
+}
+
+QStringList bestVerbOrWord(QStringList users, QStringList values)
+{
+    int index = 0;
+    int valmax = 0;
+    QStringList res;
+
+    for (int i=0; i<users.size(); i++) {
+        if (values[i].toInt() > valmax) {
+            index = i;
+            valmax = values[i].toInt();
+        }
+    }
+
+    res.append(users[index]);
+    res.append(QString::number(valmax));
+
+    return res;
 }

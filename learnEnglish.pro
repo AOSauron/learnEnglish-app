@@ -32,4 +32,7 @@ OTHER_FILES += \
 
 DISTFILES += \
     dataverb.csv \
-    saves.csv
+    saves.csv \
+    ../../../../../Ethminer/icon1.png \
+    icon1.png \
+    british-icon.png
