@@ -12,27 +12,26 @@ TARGET = learnEnglish
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    transdialog.cpp \
-    utils.cpp \
-    verbdialog.cpp
+SOURCES += sources/main.cpp\
+        sources/mainwindow.cpp \
+    sources/transdialog.cpp \
+    sources/utils.cpp \
+    sources/verbdialog.cpp
 
-HEADERS  += mainwindow.h \
-    transdialog.h \
-    utils.h \
-    verbdialog.h
+HEADERS  += headers/mainwindow.h \
+    headers/transdialog.h \
+    headers/utils.h \
+    headers/verbdialog.h
 
-FORMS    += mainwindow.ui \
-    transdialog.ui \
-    verbdialog.ui
+FORMS    += forms/mainwindow.ui \
+    forms/transdialog.ui \
+    forms/verbdialog.ui
 
 OTHER_FILES += \
-    dataword.csv
+    databases/dataword.csv
 
 DISTFILES += \
-    dataverb.csv \
-    saves.csv \
-    ../../../../../Ethminer/icon1.png \
-    icon1.png \
-    british-icon.png
+    databases/dataverb.csv \
+    databases/saves.csv \
+    resources/icon.png \
+    resources/british-icon.png

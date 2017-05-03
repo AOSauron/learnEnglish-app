@@ -1,8 +1,8 @@
-#include "mainwindow.h"
-#include "utils.h"
-#include "ui_mainwindow.h"
-#include "transdialog.h"
-#include "verbdialog.h"
+#include "headers/mainwindow.h"
+#include "headers/utils.h"
+#include "headers/ui_mainwindow.h"
+#include "headers/transdialog.h"
+#include "headers/verbdialog.h"
 #include <QDebug>
 #include <QFile>
 
@@ -28,22 +28,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->widget_2->close();
     ui->widget_3->close();
 
-    QPixmap pixmap("icon.png");
+    QPixmap pixmap("resources/icon.png");
     QIcon ButtonIcon(pixmap);
     ui->pushButton_5->setIcon(ButtonIcon);
     ui->pushButton_5->setIconSize(pixmap.rect().size());
 
-    QPixmap pixmap2("british-icon.png");
-    QPixmap pixmap3("france-icon.png");
+    QPixmap pixmap2("resources/british-icon.png");
+    QPixmap pixmap3("resources/france-icon.png");
     ui->label_image->setPixmap(pixmap2);
     ui->label_image_2->setPixmap(pixmap3);
 
     transdialog.resetHighscore();
     verbdialog.resetHighscore();
 
-    pathword = "dataword.csv";
-    pathverb = "dataverbs.csv";
-    pathsave = "saves.csv";
+    pathword = "databases/dataword.csv";
+    pathverb = "databases/dataverbs.csv";
+    pathsave = "databases/saves.csv";
 
     connect(ui->actionLoad_vocabulary_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload_clicked()));
     connect(ui->actionLoad_irregular_verbs_CSV_file, SIGNAL(triggered()), this, SLOT(on_actionload2_clicked()));
@@ -81,8 +81,6 @@ void MainWindow::on_pushButton_2_clicked()
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    int index;
-
     username=ui->lineEdit->text();
     username.remove(QRegExp("[/^\\s/]"));
     username.remove(QRegExp("[/^\,/]"));

@@ -1,7 +1,7 @@
-#include "verbdialog.h"
-#include "ui_verbdialog.h"
+#include "headers/verbdialog.h"
+#include "headers/ui_verbdialog.h"
 #include <QDebug>
-#include "utils.h"
+#include "headers/utils.h"
 #include <QtGlobal>
 #include <QFile>
 
@@ -56,8 +56,8 @@ VerbDialog::VerbDialog(QWidget *parent) :
     ui->line_4->setVisible(false);
     ui->line_7->setVisible(false);
     ui->label_percent->setVisible(false);
-    QPixmap pixmap2("british-icon.png");
-    QPixmap pixmap3("france-icon.png");
+    QPixmap pixmap2("resources/british-icon.png");
+    QPixmap pixmap3("resources/france-icon.png");
     ui->label_image->setPixmap(pixmap2);
     ui->label_image_2->setPixmap(pixmap3);
 }
@@ -168,11 +168,6 @@ void VerbDialog::initListe()
 
     //Call truncate() on liste meaning
     meaning = truncate(meaning);
-
-    //qDebug() << inf;
-    //qDebug() << pret;
-    //qDebug() << pastp;
-    //qDebug() << meaning;
 }
 
 void VerbDialog::on_pushButton_clicked()

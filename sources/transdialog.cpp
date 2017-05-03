@@ -1,6 +1,6 @@
-#include "transdialog.h"
-#include "ui_transdialog.h"
-#include "utils.h"
+#include "headers/transdialog.h"
+#include "headers/ui_transdialog.h"
+#include "headers/utils.h"
 #include <QtGlobal>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,8 +28,8 @@ TransDialog::TransDialog(QWidget *parent) :
     ui->logged_as->setVisible(false);
     ui->end_button->setVisible(false);
 
-    QPixmap pixmap2("british-icon.png");
-    QPixmap pixmap3("france-icon.png");
+    QPixmap pixmap2("resources/british-icon.png");
+    QPixmap pixmap3("resources/france-icon.png");
     ui->label_image->setPixmap(pixmap2);
     ui->label_image_2->setPixmap(pixmap3);
 
