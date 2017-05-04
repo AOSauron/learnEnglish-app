@@ -9,7 +9,7 @@
   - GARCIA Guillaume
   - BLANC Pierre-Arnaud
 
-### Developpement 
+### Developpement
 * **Dependencies for developpement on Linux**
 
   - libgl1-mesa-dev
@@ -17,9 +17,9 @@
   - qtcreator                     (recommended)
 
 * **Dependencies for developpement on Windows**
-  
+
   - Qt5 with QtCreator            (mandatory)
-  
+
 * **Build & execute on Linux**
 
   - `qmake` (necessary if .pro file has been modified)
@@ -31,7 +31,7 @@
 * **Build & execute on Windows (works also for Linux)**
 
   - Open the project `learnEnglish.pro` with QtCreator and use the integrated compiler to compile & execute.
-   
+
 ### Release
 * **Dependencies for the release**
 
@@ -41,6 +41,10 @@
 
 
 * **How to use Learn'English**
+
+    * **A more substantial documentation is exposed in our PDF report**
+
+      - [Open the user and technical documentation.](report_learnEnglish.pdf) (technical doc is written in French)
 
     * **Test your vocabulary**
 
