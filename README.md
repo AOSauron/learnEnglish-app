@@ -1,6 +1,6 @@
 # Learn'English
 
-**Desktop app for learning English !**
+**Desktop app for learning English made with Qt**
 
 *English Project TELECOM Nancy 2016-2017*
 
@@ -13,7 +13,7 @@
 * **Dependencies for developpement on Linux**
 
   - libgl1-mesa-dev
-  - qt5
+  - **qt5**
   - qtcreator                     (recommended)
 
 * **Dependencies for developpement on Windows**
@@ -30,14 +30,14 @@
 
 * **Build & execute on Windows (works also for Linux)**
 
-  - Open the project `learnEnglish.pro` with QtCreator and use the integrated compiler to compile & execute.
+  - Open the project `learnEnglish.pro` with **QtCreator** and use the integrated compiler to compile & execute.
 
 ### Release
 * **Dependencies for the release**
 
   - Windows 7 or more for the Windows release.
   - Linux Kernel 3.18 or more for the Linux release.
-  - qt5 for the Linux release (a special light shared lib will be provided in the future)
+  - **qt5** for the Linux release (a special light shared lib will be provided in the future)
 
 
 * **How to use Learn'English**
